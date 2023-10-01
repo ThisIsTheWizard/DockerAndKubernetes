@@ -40,7 +40,9 @@ build/Release
 
 # Dependency directories
 node_modules/
+server/node_modules/
 jspm_packages/
+server/jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -131,3 +133,6 @@ dist
 
 # Intellij files
 .idea
+
+# Package lock file
+server/package-lock.json
