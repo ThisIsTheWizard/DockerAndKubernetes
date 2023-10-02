@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-and-kubernetes-server-deployment
+  labels:
+    app: docker-and-kubernetes-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-and-kubernetes-server
+  template:
+    metadata:
+      labels:
+        app: docker-and-kubernetes-server
+    spec:
+      containers:
+        - name: docker-and-kubernetes-server
+          image: thisisthewizard/docker-and-kubernetes-server:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-database-secret
+                  key: postgres-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-database-secret
+                  key: postgres-pass
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: database-host
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-database-secret
+                  key: postgres-db
+            - name: PORT
+              value: '8000'
