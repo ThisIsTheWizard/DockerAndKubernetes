@@ -10,6 +10,6 @@ RUN npm i --omit=dev
 
 COPY . .
 
-CMD ["sh", "-c", "node index"]
+CMD ["sh", "-c", "node server"]
 
-EXPOSE 8080
+EXPOSE 8000
