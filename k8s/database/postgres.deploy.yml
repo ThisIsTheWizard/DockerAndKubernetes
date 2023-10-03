@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: postgres-deployment
   labels:
-    app: postgres-database-server
+    app: postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres-database-server
+      app: postgres
   template:
     metadata:
       labels:
-        app: postgres-database-server
+        app: postgres
     spec:
       containers:
-        - name: postgres-database-server
+        - name: postgres
           image: postgres:latest
           ports:
             - containerPort: 5432
@@ -23,15 +23,15 @@ spec:
           - name: POSTGRES_USER
             valueFrom:
               secretKeyRef:
-                name: postgres-database-secret
+                name: postgres-secret
                 key: postgres-user
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: postgres-database-secret
+                name: postgres-secret
                 key: postgres-pass
           - name: POSTGRES_DB
             valueFrom:
               secretKeyRef:
-                name: postgres-database-secret
+                name: postgres-secret
                 key: postgres-db

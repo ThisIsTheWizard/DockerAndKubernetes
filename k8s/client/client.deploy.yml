@@ -1,21 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: docker-and-kubernetes-client-deployment
+  name: client-deployment
   labels:
-    app: docker-and-kubernetes-client
+    app: client
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: docker-and-kubernetes-client
+      app: client
   template:
     metadata:
       labels:
-        app: docker-and-kubernetes-client
+        app: client
     spec:
       containers:
-        - name: docker-and-kubernetes-client
-          image: thisisthewizard/docker-and-kubernetes-client:latest
+        - name: client
+          image: client:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 80

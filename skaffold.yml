@@ -2,6 +2,36 @@ apiVersion: skaffold/v4beta6
 kind: Config
 metadata:
   name: skaffold
+build:
+  artifacts:
+    - image: client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'Dockerfile'
+            dest: .
+          - src: '*.html'
+            dest: .
+          - src: '*.css'
+            dest: .
+          - src: '*.js'
+            dest: .
+    - image: server
+      context: server
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'Dockerfile'
+            dest: .
+          - src: '*.json'
+            dest: .
+          - src: '*.js'
+            dest: .
+  local:
+    push: false
 deploy:
   kubectl: {}
 manifests:

@@ -1,34 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: docker-and-kubernetes-server-deployment
+  name: server-deployment
   labels:
-    app: docker-and-kubernetes-server
+    app: server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: docker-and-kubernetes-server
+      app: server
   template:
     metadata:
       labels:
-        app: docker-and-kubernetes-server
+        app: server
     spec:
       containers:
-        - name: docker-and-kubernetes-server
-          image: thisisthewizard/docker-and-kubernetes-server:latest
+        - name: server
+          image: server:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 8000
           env:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-database-secret
+                  name: postgres-secret
                   key: postgres-user
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-database-secret
+                  name: postgres-secret
                   key: postgres-pass
             - name: POSTGRES_HOST
               valueFrom:
@@ -38,7 +39,7 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: postgres-database-secret
+                  name: postgres-secret
                   key: postgres-db
             - name: PORT
               value: '8000'
